@@ -31,7 +31,7 @@ module "aws_fqdn_transit_gw" {
   region                 = "us-east-2"
   name                   = "aws-fqdntransit-gw"
   instance_size          = "c5.xlarge"
-  ha_gw                  = false
+  ha_gw                  = true
   enable_transit_firenet = true
 }
 
@@ -45,7 +45,7 @@ module "aws_fqdn_spoke_gw" {
   account    = "AWS"
   attached   = true
   transit_gw = module.aws_fqdn_transit_gw.transit_gateway.gw_name
-  ha_gw      = false
+  ha_gw      = true
 }
 
 #Step 2 - We create the security group for use in the spokes
@@ -137,7 +137,7 @@ module "aws_remote_transit_gw" {
   region                 = "us-east-2"
   name                   = "aws-remote-transit-gw"
   instance_size          = "c5.xlarge"
-  ha_gw                  = false
+  ha_gw                  = true
   enable_transit_firenet = false
 }
 
@@ -151,7 +151,7 @@ module "aws_remote_spoke_gw" {
   account    = "AWS"
   attached   = true
   transit_gw = module.aws_remote_transit_gw.transit_gateway.gw_name
-  ha_gw      = false
+  ha_gw      = true
 }
 
 #Step 6 - Next, we peer the remote transit gateway with our centralized transit gateway
